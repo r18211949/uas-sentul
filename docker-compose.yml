@@ -1,0 +1,15 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8081:3000"
+    restart: unless-stopped
+
+  uptime-kuma:
+    image: louislam/uptime-kuma:latest
+    container_name: uptime-kuma
+    ports:
+      - "3002:3001"
+    volumes:
+      - ./uptime-kuma-data:/app/data
+    restart: unless-stopped
