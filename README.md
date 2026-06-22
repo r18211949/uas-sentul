@@ -1,14 +1,14 @@
-🐍 Wikipedia Ular - UAS Sentul
+# 🐍 Wikipedia Ular - UAS Sentul
 
-Website informasi ular berbasis Node.js, Express, dan EJS yang dijalankan menggunakan Docker, dideploy otomatis menggunakan GitHub Actions, diamankan dengan HTTPS Let's Encrypt, serta dimonitor menggunakan Uptime Kuma.
+Website informasi ular berbasis **Node.js**, **Express**, dan **EJS** yang dijalankan menggunakan **Docker**, dideploy otomatis menggunakan **GitHub Actions**, diamankan dengan **HTTPS Let's Encrypt**, serta dimonitor menggunakan **Uptime Kuma**.
 
 ---
 
-📋 Project Overview
+# 📋 Project Overview
 
-Project ini dibuat untuk memenuhi tugas UAS Sistem Operasi dan Jaringan Komputer STMIK Tazkia Semester Genap 2025/2026.
+Project ini dibuat untuk memenuhi tugas **UAS Sistem Operasi dan Jaringan Komputer** STMIK Tazkia Semester Genap 2025/2026.
 
-Fitur yang diimplementasikan:
+## Fitur
 
 - Halaman informasi ular berbasis Wikipedia
 - Reverse Proxy menggunakan Nginx
@@ -20,68 +20,63 @@ Fitur yang diimplementasikan:
 
 ---
 
-🌐 Informasi Domain
+# 🌐 Informasi Domain
 
-Komponen| Nilai
-Website Utama| https://roesdi.my.id
-Monitoring| https://monitor.roesdi.my.id
-IP VPS| 103.168.146.195
-
----
-
-🏗️ Arsitektur Sistem
-
-                    +----------------------+
-                    |       Internet       |
-                    +----------+-----------+
-                               |
-                               v
-                    +----------------------+
-                    |  DNS (roesdi.my.id)  |
-                    +----------+-----------+
-                               |
-                               v
-                    +----------------------+
-                    |        Nginx         |
-                    |   Reverse Proxy      |
-                    |  SSL Let's Encrypt   |
-                    +----------+-----------+
-                               |
-                               v
-                    +----------------------+
-                    | Docker Container     |
-                    | Node.js + Express    |
-                    | Internal Port: 3000  |
-                    | Host Port: 8081      |
-                    +----------------------+
-
-                               |
-                               v
-
-                    +----------------------+
-                    |     Uptime Kuma      |
-                    |     Port: 3002       |
-                    | monitor.roesdi.my.id |
-                    +----------------------+
+| Komponen | Nilai |
+|-----------|---------|
+| Website Utama | https://roesdi.my.id |
+| Monitoring | https://monitor.roesdi.my.id |
+| IP VPS | 103.168.146.195 |
+| Repository | https://github.com/r18211949/uas-sentul |
 
 ---
 
-🔧 Infrastruktur
+# 🏗️ Arsitektur Sistem
 
-Komponen| Detail
-Web Server| Nginx
-Backend| Node.js + Express
-Template Engine| EJS
-Containerization| Docker & Docker Compose
-SSL/TLS| Let's Encrypt
-CI/CD| GitHub Actions
-Monitoring| Uptime Kuma
-Backup| Cron Job
+```text
+Internet
+    │
+    ▼
+DNS (roesdi.my.id)
+    │
+    ▼
+Nginx Reverse Proxy
+(SSL Let's Encrypt)
+    │
+    ▼
+Docker Container
+(Node.js + Express)
+Port Internal : 3000
+Port Host     : 8081
+
+    │
+    ▼
+
+Uptime Kuma
+Port : 3002
+monitor.roesdi.my.id
+```
 
 ---
 
-📂 Struktur Deployment
+# 🔧 Infrastruktur
 
+| Komponen | Detail |
+|-----------|----------|
+| Web Server | Nginx |
+| Backend | Node.js + Express |
+| Template Engine | EJS |
+| Containerization | Docker & Docker Compose |
+| SSL/TLS | Let's Encrypt |
+| CI/CD | GitHub Actions |
+| Monitoring | Uptime Kuma |
+| Backup | Cron Job |
+
+---
+
+# 📂 Struktur Deployment
+
+```text
 /home/m1821/
 │
 ├── my-app/
@@ -99,165 +94,200 @@ Backup| Cron Job
 │   └── backup.log
 │
 └── backup.sh
+```
 
 ---
 
-🚀 Deployment Otomatis (CI/CD)
+# 🚀 Deployment Otomatis (CI/CD)
 
-Setiap perubahan yang di-push ke branch "main" akan secara otomatis dideploy ke VPS menggunakan GitHub Actions.
+Setiap perubahan yang di-push ke branch `main` akan secara otomatis dideploy ke VPS menggunakan GitHub Actions.
 
-Alur CI/CD
+## Alur CI/CD
 
-Developer
-    │
-    └── git push main
-             │
-             ▼
-     GitHub Actions
-             │
-             ▼
-      Build & Test
-             │
-             ▼
-      Deploy ke VPS
-             │
-             ▼
-    Docker Compose Up
-             │
-             ▼
-      Aplikasi Online
+```mermaid
+flowchart TD
+    A[Developer Push ke Main]
+    B[GitHub Actions]
+    C[Build Application]
+    D[Deploy ke VPS]
+    E[Docker Compose Up]
+    F[Aplikasi Online]
 
-Tahapan Deployment
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+```
+
+## Tahapan Deployment
 
 1. Developer melakukan perubahan kode.
-2. Perubahan di-push ke branch "main".
+2. Perubahan di-push ke branch `main`.
 3. GitHub Actions menjalankan workflow deployment.
 4. VPS mengambil perubahan terbaru dari repository.
 5. Docker Compose melakukan build ulang container.
 6. Container aplikasi direstart.
 7. Aplikasi versi terbaru langsung tersedia.
 
-Workflow CI/CD:
+### Workflow CI/CD
 
+```bash
 .github/workflows/deploy.yml
+```
 
 ---
 
-▶️ Cara Menjalankan Aplikasi
+# ▶️ Cara Menjalankan Aplikasi
 
-Clone Repository
+## Clone Repository
 
-git clone https://github.com/username/repository.git /home/m1821/my-app
+```bash
+git clone https://github.com/r18211949/uas-sentul.git /home/m1821/my-app
 
 cd /home/m1821/my-app
+```
 
-Build dan Jalankan
+## Build dan Jalankan
 
+```bash
 docker compose up -d --build
+```
 
-Verifikasi
+## Verifikasi
 
+```bash
 curl http://localhost:8081
+```
 
-Cek Status Container
+## Cek Status Container
 
+```bash
 docker ps
+```
 
 ---
 
-🔄 Restart Aplikasi
+# 🔄 Restart Aplikasi
 
 Jika aplikasi mengalami kendala atau setelah melakukan perubahan konfigurasi:
 
+```bash
 cd /home/m1821/my-app
 
 docker compose restart
+```
 
 Verifikasi:
 
+```bash
 docker ps
+```
 
 ---
 
-⏪ Rollback Versi Sebelumnya
+# ⏪ Rollback Versi Sebelumnya
 
 Rollback digunakan apabila deployment terbaru mengalami masalah.
 
-Melihat Riwayat Commit
+## Melihat Riwayat Commit
 
+```bash
 git log --oneline
+```
 
 Contoh:
 
+```text
 a1b2c3d Fix navbar bug
 d4e5f6g Update UI
+```
 
-Revert Commit
+## Revert Commit
 
+```bash
 git revert <commit-hash> --no-edit
+```
 
 Contoh:
 
+```bash
 git revert a1b2c3d --no-edit
+```
 
-Push Perubahan
+## Push Perubahan
 
+```bash
 git push origin main
+```
 
 CI/CD akan otomatis melakukan deployment ulang.
 
 ---
 
-💾 Backup Otomatis
+# 💾 Backup Otomatis
 
-Backup aplikasi dilakukan setiap hari pada pukul 02:00 WIB.
+Backup aplikasi dilakukan setiap hari pukul **02:00 WIB**.
 
-Cron Job:
+## Cron Job
 
+```cron
 0 2 * * * /home/m1821/backup.sh
+```
 
-Lokasi backup:
+## Lokasi Backup
 
+```bash
 /home/m1821/backups/
+```
 
 Contoh file backup:
 
+```text
 app-20260622-134907.tar.gz
+```
 
 ---
 
-♻️ Restore dari Backup
+# ♻️ Restore dari Backup
 
-Backup aplikasi disimpan pada direktori:
+## 1. Melihat Daftar Backup
 
-/home/m1821/backups/
-
-1. Melihat Daftar Backup
-
+```bash
 ls -lah /home/m1821/backups/
+```
 
-Contoh output:
+Contoh:
 
+```text
 app-20260620-020000.tar.gz
 app-20260621-020000.tar.gz
 app-20260622-134907.tar.gz
+```
 
-2. Ekstrak Backup
+## 2. Ekstrak Backup
 
+```bash
 sudo tar -xzf /home/m1821/backups/app-YYYYMMDD-HHMMSS.tar.gz -C /tmp/
+```
 
-3. Salin Hasil Restore
+## 3. Salin Hasil Restore
 
+```bash
 sudo cp -r /tmp/home/m1821/my-app/* /home/m1821/my-app/
+```
 
-4. Restart Aplikasi
+## 4. Restart Aplikasi
 
+```bash
 cd /home/m1821/my-app
 
 docker compose restart
+```
 
-Contoh Restore Lengkap
+## Contoh Restore Lengkap
 
+```bash
 sudo tar -xzf /home/m1821/backups/app-20260622-134907.tar.gz -C /tmp/
 
 sudo cp -r /tmp/home/m1821/my-app/* /home/m1821/my-app/
@@ -265,89 +295,110 @@ sudo cp -r /tmp/home/m1821/my-app/* /home/m1821/my-app/
 cd /home/m1821/my-app
 
 docker compose restart
+```
 
-Verifikasi Setelah Restore
+## Verifikasi Setelah Restore
 
+```bash
 docker ps
+```
 
+```bash
 curl http://localhost:8081
+```
 
-Jika container berstatus Up dan aplikasi memberikan respons normal, maka proses restore berhasil.
+Jika container berstatus **Up** dan aplikasi memberikan respons normal, maka proses restore berhasil.
 
 ---
 
-📊 Monitoring
+# 📊 Monitoring
 
-Monitoring dilakukan menggunakan Uptime Kuma.
+Monitoring dilakukan menggunakan **Uptime Kuma**.
 
-Dashboard:
+## Dashboard
 
+```text
 https://monitor.roesdi.my.id
+```
 
-Target monitor:
+## Target Monitor
 
+```text
 https://roesdi.my.id
+```
 
-Konfigurasi:
+## Konfigurasi
 
-Parameter| Nilai
-Tipe Monitor| HTTP/HTTPS
-Interval| 60 Detik
-Status UP| Hijau
-Status DOWN| Merah
+| Parameter | Nilai |
+|------------|---------|
+| Tipe Monitor | HTTP/HTTPS |
+| Interval | 60 Detik |
+| Status UP | Hijau |
+| Status DOWN | Merah |
 
 ---
 
-📝 Logging
+# 📝 Logging
 
-Log Aplikasi
+## Log Aplikasi
 
-Melihat log:
-
+```bash
 docker logs my-app-app-1
+```
 
-Log realtime:
+Realtime:
 
+```bash
 docker logs -f my-app-app-1
+```
 
-Log berdasarkan waktu:
+Berdasarkan waktu:
 
+```bash
 docker logs --since 2026-06-22T14:00:00 my-app-app-1
+```
 
 ---
 
-Log Nginx
+## Log Nginx
 
-Access Log
+### Access Log
 
+```bash
 sudo tail -f /var/log/nginx/access.log
+```
 
-Error Log
+### Error Log
 
+```bash
 sudo tail -f /var/log/nginx/error.log
+```
 
 ---
 
-Log Backup
+## Log Backup
 
+```bash
 cat /home/m1821/backups/backup.log
+```
 
 ---
 
-⚙️ Informasi Operasional
+# ⚙️ Informasi Operasional
 
-Item| Lokasi
-Folder Project| /home/m1821/my-app
-Folder Backup| /home/m1821/backups
-Script Backup| /home/m1821/backup.sh
-Konfigurasi Nginx| /etc/nginx/sites-available/roesdi.my.id
-Workflow CI/CD| .github/workflows/deploy.yml
-Port Aplikasi| 8081
-Port Monitoring| 3002
+| Item | Lokasi |
+|---------|---------|
+| Folder Project | /home/m1821/my-app |
+| Folder Backup | /home/m1821/backups |
+| Script Backup | /home/m1821/backup.sh |
+| Konfigurasi Nginx | /etc/nginx/sites-available/roesdi.my.id |
+| Workflow CI/CD | .github/workflows/deploy.yml |
+| Port Aplikasi | 8081 |
+| Port Monitoring | 3002 |
 
 ---
 
-🛠️ Teknologi yang Digunakan
+# 🛠️ Teknologi yang Digunakan
 
 - Node.js
 - Express.js
@@ -362,15 +413,15 @@ Port Monitoring| 3002
 
 ---
 
-👨‍🎓 Informasi Akademik
+# 👨‍🎓 Informasi Akademik
 
-Mata Kuliah: Sistem Operasi dan Jaringan Komputer
-Program Studi: Teknik Informatika
-Institusi: STMIK Tazkia
-Semester: Genap 2025/2026
+**Mata Kuliah:** Sistem Operasi dan Jaringan Komputer  
+**Program Studi:** Teknik Informatika  
+**Institusi:** STMIK Tazkia  
+**Semester:** Genap 2025/2026
 
 ---
 
-📄 Lisensi
+# 📄 Lisensi
 
 Dokumentasi ini dibuat untuk keperluan akademik dalam rangka memenuhi tugas UAS Sistem Operasi dan Jaringan Komputer STMIK Tazkia.
